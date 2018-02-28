@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single"
+        android:id="@+id/group_features">
+        <item
+            android:id="@+id/nav_transactions"
+            android:icon="@mipmap/bill"
+            android:title="My transactions" />
+        <item
+            android:id="@+id/nav_security"
+            android:icon="@mipmap/locked"
+            android:title="Security" />
+        <item
+            android:id="@+id/nav_budget"
+            android:icon="@mipmap/budget"
+            android:title="Budget" />
+        <item
+            android:id="@+id/nav_trend"
+            android:icon="@mipmap/graph"
+            android:title="Price Trend" />
+    </group>
+
+    <group android:checkableBehavior="single"
+        android:id="@+id/group_settings">
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@mipmap/settings"
+            android:title="My Settings" />
+        <item
+            android:id="@+id/nav_help"
+            android:icon="@mipmap/question"
+            android:title="Help" />
+    </group>
+
+
+
+</menu>
+
