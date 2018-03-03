@@ -459,10 +459,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_budget) {
             Intent budgetActivity = new Intent(getApplicationContext(), BudgetActivity.class);
             startActivity(budgetActivity);
-
         } else if (id == R.id.nav_trend) {
 
         } else if (id == R.id.nav_settings) {
+            Intent settings = new Intent(getApplicationContext(), SettingsActivity.class);
+            startActivity(settings);
 
         } else if (id == R.id.nav_help) {
 

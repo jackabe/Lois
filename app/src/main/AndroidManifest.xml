@@ -49,7 +49,10 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label=""
             android:theme="@style/FullscreenTheme" />
-        <activity android:name=".BudgetActivity"></activity>
+        <activity android:name=".BudgetActivity" />
+        <activity
+            android:name=".SettingsActivity"
+            android:label="Settings" />
     </application>
 
 </manifest>
