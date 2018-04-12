@@ -2,6 +2,7 @@ package com.lois.jack.lois;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -23,10 +24,16 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,8 +45,11 @@ import com.shashank.sony.fancygifdialoglib.FancyGifDialogListener;
 import java.io.UnsupportedEncodingException;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import cn.refactor.lib.colordialog.ColorDialog;
@@ -61,8 +71,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ListCustomAdapter listCustomAdapter;
     private ArrayList<Sale> recieptListArray;
     private ArrayList<Sale> sales;
-    static Sale saleToSend;
+    private Sale saleToSend;
     static ArrayList<Item> itemsToPassOver;
+    private ImageView backButton;
+
+    private ListView itemList;
+    private ArrayList<Item> itemArray;
+    private ItemCustomAdapter listAdatper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,24 +85,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
 
         receiptList = (ListView) findViewById(R.id.receiptList);
+        backButton = findViewById(R.id.receipt_back);
         recieptListArray = new ArrayList<>();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setBackgroundColor(Color.TRANSPARENT);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
+        getSupportActionBar().setTitle("");
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        navigationView.setItemIconTintList(null);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent landing = new Intent(getApplicationContext(), LandingActivity.class);
+                startActivity(landing);
+            }
+        });
 
         mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
 
@@ -113,8 +125,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 saleToSend = sales.get(i);
-                Intent intent = new Intent(getApplicationContext(), ViewActivity.class);
-                startActivity(intent);
+                showDialog(saleToSend);
             }
         });
 
@@ -150,6 +161,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent landing = new Intent(getApplicationContext(), LandingActivity.class);
+        startActivity(landing);
     }
 
     @Override
@@ -312,6 +335,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         protected void onPostExecute(final String result) {
             if (result != null) {
 
+                String shopType = "";
                 String shopName = "";
                 String priceTotal = "";
                 String delimiter = "%";
@@ -332,9 +356,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         else if (delimiterCheck == 1) {
                             priceTotal += c;
                         }
-                        else if (delimiterCheck > 1) {
+                        else if (delimiterCheck == 2) {
+                            shopType += c;
+                        }
+                        else if (delimiterCheck > 2) {
                             // even (item name)
-                            if ((delimiterCheck % 2) == 0) {
+                            if ((delimiterCheck % 2) == 1) {
                                 itemName += c;
                             }
                             // odd (item price)
@@ -369,7 +396,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
-                Sale sale = new Sale(shopName, priceTotal, timestamp.toString());
+                Sale sale = new Sale(shopName, priceTotal, timestamp.toString(), shopType);
                 SugarRecord.save(sale);
 
                 Sale savedSale = Sale.findWithQuery(Sale.class, "Select * from Sale where timestamp = ?", sale.getTimestamp().toString()).get(0);
@@ -399,49 +426,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         }
     }
-
-
-
+    
     public void populateListView() {
         sales = new ArrayList<>(Sale.listAll(Sale.class));
+
+        Collections.reverse(sales);
 
         listCustomAdapter = new ListCustomAdapter(
                 getApplicationContext(), sales);
         receiptList.setAdapter(listCustomAdapter);
 
         listCustomAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main2, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -472,6 +467,99 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void showDialog(Sale sale){
+        final Dialog dialog = new Dialog(MainActivity.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.receipt_popout);
+
+        itemList = (ListView) dialog.findViewById(R.id.itemsList);
+
+        itemArray = new ArrayList<>(Item.findWithQuery(Item.class, "Select * from Item where sale_id = ?", sale.getId().toString()));
+
+        TextView shopName = dialog.findViewById(R.id.shopName);
+        TextView shopTotalPrice = dialog.findViewById(R.id.shopTotal);
+        ImageView shopImage = dialog.findViewById(R.id.shopImage);
+
+        shopTotalPrice.setText("Price: ");
+        shopName.append(sale.getShopName());
+        shopTotalPrice.append(sale.getPriceTotal());
+
+        listAdatper = new ItemCustomAdapter(
+                getApplicationContext(), itemArray);
+        itemList.setAdapter(listAdatper);
+
+        listAdatper.notifyDataSetChanged();
+
+        TextView doneButton = dialog.findViewById(R.id.receipt_done);
+        TextView shopDate = dialog.findViewById(R.id.shopDate);
+
+        Timestamp date = new Timestamp(System.currentTimeMillis());
+
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
+            Date parsedDate = dateFormat.parse(sale.getTimestamp());
+            date = new java.sql.Timestamp(parsedDate.getTime());
+        } catch(Exception e) {
+        }
+
+        Integer dayInt = date.getDay();
+        String day = dayInt.toString();
+        int monthInt = date.getMonth();
+        String month = "";
+
+        if (day.length() == 1) {
+            day = "0"+day;
+        }
+
+        if (monthInt == 1) {
+            month = "January";
+        } else if (monthInt == 2) {
+            month = "February";
+        } else if (monthInt ==3) {
+            month = "March";
+        } else if (monthInt == 4) {
+            month = "April";
+        } else if (monthInt == 5) {
+            month = "May";
+        } else if (monthInt == 6) {
+            month = "June";
+        } else if (monthInt == 7) {
+            month = "July";
+        } else if (monthInt == 8) {
+            month = "August";
+        } else if (monthInt == 9) {
+            month = "September";
+        } else if (monthInt == 10) {
+            month = "October";
+        } else if (monthInt == 11) {
+            month = "November";
+        } else {
+            month = "December`";
+        }
+
+        if (sale.getShopName().equals("Next")) {
+            shopImage.setImageResource(R.drawable.next);
+        }
+        else if (sale.getShopName().equals("Topman")){
+            shopImage.setImageResource(R.drawable.topmanp);
+        }
+        else {
+            shopImage.setImageResource(R.drawable.boots);
+        }
+
+        shopDate.setText(day + " " + month + " at " + date.getHours() + ":" +date.getMinutes());
+        doneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+
     }
 }
 

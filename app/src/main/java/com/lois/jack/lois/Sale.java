@@ -16,11 +16,13 @@ public class Sale extends SugarRecord {
     private String shopName;
     private String priceTotal;
     private String timestamp;
+    private String type;
 
-    public Sale(String shopName, String priceTotal, String timestamp) {
+    public Sale(String shopName, String priceTotal, String timestamp, String type) {
         this.shopName = shopName;
         this.priceTotal = priceTotal;
         this.timestamp = timestamp;
+        this.type = type;
     }
 
     public Sale() {
@@ -48,6 +50,14 @@ public class Sale extends SugarRecord {
 
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
 

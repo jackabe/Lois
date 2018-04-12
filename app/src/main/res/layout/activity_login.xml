@@ -1,0 +1,97 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/background"
+    tools:context="com.lois.jack.lois.LoginActivity">
+
+    <!-- The primary full-screen view. This can be replaced with whatever view
+         is needed to present your content, e.g. VideoView, SurfaceView,
+         TextureView, etc. -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="-100dp">
+
+
+        <TextView
+            android:id="@+id/fingerText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorDivider"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="Touch sensor to confirm fingerprint" />
+
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/loadingFinger" android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/AVLoadingIndicatorView"
+            android:layout_centerHorizontal="true"
+            android:layout_above="@id/fingerText"
+            android:layout_marginBottom="50dp"
+            android:layout_centerVertical="true"
+            android:visibility="visible"
+            app:indicatorName="BallPulseIndicator"
+            app:indicatorColor="@color/colorDivider"
+            />
+
+        <ImageView
+            android:id="@+id/fingerImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/fingerText"
+            android:layout_marginTop="50dp"
+            app:srcCompat="@drawable/fingerprint" />
+
+        <TextView
+            android:id="@+id/fingerTextFail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/holo_red_dark"
+            android:layout_below="@id/fingerImage"
+            android:layout_marginTop="40dp"
+            android:visibility="invisible"
+            android:layout_centerHorizontal="true"
+            android:text="Incorrect fingerprint - try again!" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/fullscreen_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:keepScreenOn="true"
+        android:text=""
+        android:textColor="#33b5e5"
+        android:textSize="50sp"
+        android:textStyle="bold" />
+
+    <!-- This FrameLayout insets its children based on system windows using
+         android:fitsSystemWindows. -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+        <LinearLayout
+            android:id="@+id/fullscreen_content_controls"
+            style="?metaButtonBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:background="@color/black_overlay"
+            android:orientation="horizontal"
+            tools:ignore="UselessParent">
+
+
+
+        </LinearLayout>
+    </FrameLayout>
+
+
+</FrameLayout>

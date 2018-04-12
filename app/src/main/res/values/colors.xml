@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#551F8A</color>
+    <color name="colorPrimary">#7117b5</color>
     <color name="colorPrimaryDark">#44186E</color>
-    <color name="colorBackground">#551F8A</color>
-    <color name="colorAccent">#551F8A</color>
+    <color name="colorBackground">#7117b5</color>
+    <color name="colorAccent">#7117b5</color>
     <color name="colorDivider">#d6d8db</color>
+    <color name="white">#ffffff</color>
+    <color name="noColour">#80ffffff</color>
+    <color name="budgetBackground">#76379f</color>
+    <color name="discountBackground">#be37b8</color>
+    <color name="receiptsBackground">#7117b5</color>
 
     <color name="black_overlay">#66000000</color>
 </resources>

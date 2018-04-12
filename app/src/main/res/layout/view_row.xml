@@ -5,33 +5,51 @@
     android:layout_height="fill_parent"
     android:padding="20dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/shopImage"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_alignParentLeft="true"
-        android:text="Next"
-        android:textSize="15dp"
-        android:textColor="@color/colorBackground"
-        android:id="@+id/name"/>
+        android:src="@drawable/ic_menu_gallery"
+        app:civ_border_width="1dp"
+        app:civ_border_color="#ffffff"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:text="02 Feb"
-        android:textSize="12dp"
-        android:paddingTop="25dp"
-        android:textColor="@color/colorBackground"
-        android:id="@+id/date"/>
+        android:layout_toRightOf="@id/shopImage"
+        android:paddingLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:text="Next"
+        android:textSize="16dp"
+        android:letterSpacing="0.05"
+        android:textColor="@android:color/black"
+        android:id="@+id/name"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:text="50.99"
-        android:textSize="15dp"
-        android:textColor="@color/colorBackground"
+        android:layout_marginTop="15dp"
+        android:textSize="16dp"
+        android:layout_marginRight="10dp"
+        android:textColor="@android:color/black"
         android:id="@+id/total"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="02 Feb"
+        android:layout_toRightOf="@id/shopImage"
+        android:paddingTop="5dp"
+        android:paddingLeft="20dp"
+        android:textSize="12dp"
+        android:layout_below="@id/name"
+        android:textColor="@android:color/black"
+        android:id="@+id/date"/>
+
 
 </RelativeLayout>
 

@@ -1,0 +1,110 @@
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.lois.jack.lois.MainActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:background="#6537bd"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="#6537bd"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+            <!--<TextView-->
+                <!--android:id="@+id/activityText"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textColor="#ffffff"-->
+                <!--android:textSize="30dp"-->
+                <!--android:layout_alignParentTop="true"-->
+                <!--android:layout_weight="1"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:letterSpacing="0.05"-->
+                <!--android:text="RECEIPTS" />-->
+
+            <!--<ImageView-->
+                <!--android:id="@+id/imageView"-->
+                <!--android:layout_width="80px"-->
+                <!--android:layout_height="80px"-->
+                <!--android:layout_marginLeft="20dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:layout_gravity="center"-->
+                <!--app:layout_anchor="@+id/activityText"-->
+                <!--app:srcCompat="@mipmap/paper"/>-->
+
+            <ImageView
+                android:layout_width="100px"
+                android:layout_height="100px"
+                android:layout_gravity="right"
+                android:layout_marginEnd="30dp"
+                android:id="@+id/action_settings"
+                app:srcCompat="@mipmap/settings_w"/>
+
+            <ImageView
+                android:layout_width="140px"
+                android:layout_height="140px"
+                android:layout_gravity="left"
+                android:layout_marginStart="30dp"
+                android:id="@+id/landing_logo"
+                app:srcCompat="@drawable/logo"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="100px"
+                android:layout_height="100px"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/landing_profile"
+                app:srcCompat="@drawable/user"/>
+
+                <TextView
+                    android:id="@+id/landing_text"
+                    android:layout_below="@id/landing_profile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_centerHorizontal="true"
+                    android:text="Email not registered" />
+
+            </RelativeLayout>
+
+
+        </android.support.v7.widget.Toolbar>
+
+
+    </android.support.design.widget.AppBarLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="100dp">
+
+        <ListView
+            android:id="@+id/landingList"
+            android:layout_width="match_parent"
+            android:dividerHeight="0px"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:fillViewport="true" />
+    </RelativeLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>
+
+
+
+
+
+
+
+

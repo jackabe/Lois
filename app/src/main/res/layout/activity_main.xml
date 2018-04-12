@@ -21,11 +21,53 @@
             android:theme="@style/AppTheme.AppBarOverlay">
 
             <android.support.v7.widget.Toolbar
+                android:layout_gravity="center"
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
+                android:layout_height="100dp"
                 android:background="?attr/colorPrimary"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
+                app:popupTheme="@style/AppTheme.PopupOverlay">
+
+                <TextView
+                    android:id="@+id/activityText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#ffffff"
+                    android:textSize="30dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:letterSpacing="0.05"
+                    android:text="RECEIPTS" />
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="80px"
+                    android:layout_height="80px"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    app:layout_anchor="@+id/activityText"
+                    app:srcCompat="@mipmap/paper"/>
+
+                <ImageView
+                    android:layout_width="100px"
+                    android:layout_height="100px"
+                    android:layout_gravity="right"
+                    android:layout_marginEnd="30dp"
+                    android:id="@+id/action_settings"
+                    app:srcCompat="@mipmap/settings_w"/>
+
+                <ImageView
+                    android:layout_width="100px"
+                    android:layout_height="100px"
+                    android:layout_gravity="left"
+                    android:layout_marginStart="30dp"
+                    android:id="@+id/receipt_back"
+                    app:srcCompat="@drawable/back"/>
+
+            </android.support.v7.widget.Toolbar>
+
 
         </android.support.design.widget.AppBarLayout>
 
@@ -40,14 +82,14 @@
 
 
             <ListView
+                android:id="@+id/receiptList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:divider="@color/colorDivider"
-                android:dividerHeight="5px"
-                android:paddingTop="5dp"
-                android:id="@+id/receiptList"
+                android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_alignParentStart="true" />
+                android:divider="#f6f6f6"
+                android:dividerHeight="10px"
+                android:paddingTop="5dp" />
 
 
         </android.support.design.widget.CoordinatorLayout>

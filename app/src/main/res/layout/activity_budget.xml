@@ -1,60 +1,273 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.lois.jack.lois.BudgetActivity">
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:background="?attr/colorPrimary"
+        android:layout_height="100dp"
+        android:id="@+id/budgetToolbar">
 
-        <TextView
-            android:id="@+id/budgetTitle"
-            android:layout_width="wrap_content"
+        <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context="com.lois.jack.lois.MainActivity">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:paddingTop="40dp"
-            android:text="Your Budget:"
-            android:textColor="#551F8A"
-            android:textSize="15pt" />
+            android:theme="@style/AppTheme.AppBarOverlay">
 
-        <TextView
-            android:id="@+id/budgetAmount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/budgetTitle"
-            android:paddingTop="20dp"
-            android:text="£4000 of £8000 spent"
-            android:textColor="#551F8A"
-            android:textSize="10pt" />
+            <android.support.v7.widget.Toolbar
+                android:layout_gravity="center"
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/AppTheme.PopupOverlay">
 
-        <com.github.lzyzsd.circleprogress.DonutProgress
-            android:id="@+id/donut_progress"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_marginTop="30dp" />
+                <TextView
+                    android:id="@+id/activityText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#ffffff"
+                    android:textSize="30dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:letterSpacing="0.05"
+                    android:text="BUDGET" />
 
-        <Button
-            android:text="Change Budget"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_shape"
-            android:textColor="#551F8A"
-            android:padding="10dp"
-            android:id="@+id/changeBudget"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="60dp" />
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="80px"
+                    android:layout_height="80px"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    app:layout_anchor="@+id/activityText"
+                    app:srcCompat="@drawable/bar"/>
+
+                <ImageView
+                    android:layout_width="100px"
+                    android:layout_height="100px"
+                    android:layout_gravity="right"
+                    android:layout_marginEnd="30dp"
+                    android:id="@+id/action_settings"
+                    app:srcCompat="@mipmap/settings_w"/>
+
+                <ImageView
+                    android:layout_width="100px"
+                    android:layout_height="100px"
+                    android:layout_gravity="left"
+                    android:layout_marginStart="30dp"
+                    android:id="@+id/budget_back"
+                    app:srcCompat="@drawable/back"/>
+
+            </android.support.v7.widget.Toolbar>
 
 
+        </android.support.design.widget.AppBarLayout>
+
+        </android.support.design.widget.CoordinatorLayout>
 
 
     </RelativeLayout>
 
 
-</android.support.design.widget.CoordinatorLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/main"
+        android:layout_height="390dp"
+        android:background="?attr/colorPrimary"
+        android:layout_below="@id/budgetToolbar">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/background_border"
+            android:layout_height="40dp"
+            android:id="@+id/budgetTabs">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="0dp"
+
+                        android:layout_height="match_parent"
+                        android:text="Week"
+                        android:id="@+id/weekText"
+                        android:gravity="center"
+                        android:textColor="@android:color/white"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:id="@+id/monthText"
+                        android:layout_height="match_parent"
+                        android:text="Month"
+                        android:gravity="center"
+                        android:textColor="@android:color/white"
+                        android:layout_weight="1" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:text="Year"
+                        android:id="@+id/yearText"
+                        android:textColor="@android:color/white"
+                        android:gravity="center"
+                        android:layout_weight="1" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/budgetCircle"
+            android:layout_below="@id/budgetTabs">
+
+            <TextView
+                android:id="@+id/budgetAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="You have spent £4000 of your £8000 weekly budget"
+                android:layout_centerHorizontal="true"
+                android:textColor="#ffffff"
+                android:textSize="7pt"
+                android:layout_marginTop="30dp" />
+
+            <com.github.lzyzsd.circleprogress.DonutProgress
+                android:id="@+id/donut_progress"
+                android:layout_width="240dp"
+                android:layout_height="240dp"
+                android:layout_centerHorizontal="true"
+                app:donut_text_size="24pt"
+                app:donut_unfinished_color="#ce82ff"
+                app:donut_finished_color="#a248db"
+                app:donut_text_color="@android:color/white"
+                android:layout_below="@id/budgetAmount"
+                android:layout_marginTop="30dp" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_below="@id/main"
+        android:layout_marginTop="0dp"
+        android:id="@+id/budgetMostSpent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="This month, you spent the most on"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="17dp"
+            android:textColor="@android:color/black"
+            android:id="@+id/thisMonth"
+            android:textSize="9pt"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="SHOPPING OUTLETS - £254.60"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="40dp"
+            android:textColor="@android:color/black"
+            android:id="@+id/thisMonthOn"
+            android:textSize="9pt"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_below="@id/budgetMostSpent"
+        android:background="@color/colorPrimary"
+        android:layout_height="50dp"
+        android:id="@+id/lastTransactionHeader">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Last Transaction:"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="13dp"
+            android:textColor="@android:color/white"
+            android:textSize="9pt"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/lastTransactionHeader"
+        android:id="@+id/lastTransaction">
+
+        <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/RelativeLayout01"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:padding="20dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/shopImage"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_menu_gallery"
+                app:civ_border_width="1dp"
+                app:civ_border_color="#ffffff"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/shopImage"
+                android:paddingLeft="20dp"
+                android:layout_marginTop="14dp"
+                android:text="Next"
+                android:textSize="16dp"
+                android:letterSpacing="0.05"
+                android:textColor="@android:color/black"
+                android:id="@+id/name"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="50.99"
+                android:layout_marginTop="15dp"
+                android:textSize="16dp"
+                android:layout_marginRight="10dp"
+                android:textColor="@android:color/black"
+                android:id="@+id/total"/>
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>
+
+

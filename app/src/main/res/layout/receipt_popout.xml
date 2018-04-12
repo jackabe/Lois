@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="500dp"
+    android:background="#dcdddf">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:id="@+id/receipt_top_header">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="9pt"
+            android:textStyle="bold"
+            android:paddingTop="25dp"
+            android:layout_centerHorizontal="true"
+            android:textColor="#7e7f81"
+            android:text="TRANSACTION"
+            android:letterSpacing="0.1"
+            android:id="@+id/viewTitle"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="9pt"
+            android:textStyle="bold"
+            android:paddingTop="25dp"
+            android:layout_marginRight="15dp"
+            android:layout_alignParentRight="true"
+            android:textColor="#a09b95"
+            android:text="Done"
+            android:id="@+id/receipt_done"/>
+
+        <View
+            android:layout_below="@id/viewTitle"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/receipt_shop_info"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:layout_below="@id/receipt_top_header">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/shopImage"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/boots"
+            app:civ_border_color="#ffffff"
+            app:civ_border_width="1dp" />
+
+        <TextView
+            android:id="@+id/shopName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_toRightOf="@id/shopImage"
+            android:letterSpacing="0.05"
+            android:paddingLeft="35dp"
+            android:text=""
+            android:textColor="@android:color/black"
+            android:textSize="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/shopName"
+            android:paddingLeft="35dp"
+            android:layout_marginTop="25dp"
+            android:text="Bullring and Grand Central"
+            android:textSize="16dp"
+            android:letterSpacing="0.05"
+            android:textColor="@android:color/black"
+            android:id="@+id/name"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/shopImage"
+            android:layout_marginTop="25dp"
+            android:text="Friday 13th April at 8:56 AM"
+            android:textSize="16dp"
+            android:textColor="@android:color/black"
+            android:id="@+id/shopDate"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/shopDate"
+            android:layout_marginTop="10dp"
+            android:text="Stars may take 24 hours to appear"
+            android:textSize="16dp"
+            android:textColor="#c0c1c3"
+            android:id="@+id/shop_stars"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/receipt_items"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:layout_below="@id/receipt_shop_info">
+
+        <View
+            android:layout_marginTop="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:id="@+id/header_top"
+            android:background="@android:color/black"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/header_top"
+            android:layout_marginTop="5dp"
+            android:text="Item"
+            android:textSize="16dp"
+            android:textColor="@android:color/black"
+            android:id="@+id/shop_item_header_item"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/header_top"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="5dp"
+            android:text="Amount"
+            android:textSize="16dp"
+            android:textColor="@android:color/black"
+            android:id="@+id/shop_item_header_amount"/>
+
+        <View
+            android:layout_below="@id/shop_item_header_item"
+            android:layout_marginTop="5dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_width="match_parent"
+            android:id="@+id/header_bottom"
+            android:layout_height="1dp"
+            android:background="@android:color/black"/>
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:divider="@color/colorDivider"
+            android:layout_marginTop="10dp"
+            android:dividerHeight="2px"
+            android:id="@+id/itemsList"
+            android:layout_below="@+id/header_bottom"
+            android:layout_alignParentStart="true" />
+
+        </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/receipt_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:layout_below="@id/receipt_items">
+
+        <View
+            android:layout_marginTop="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:id="@+id/bottom_header_line"
+            android:background="@android:color/black"/>
+
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="25dp"
+        android:textSize="10pt"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/bottom_header_line"
+        android:textColor="@android:color/black"
+        android:text="$100.00"
+        android:id="@+id/shopTotal"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/bottom_header_line"
+            android:paddingRight="200dp"
+            android:layout_alignParentLeft="true"
+            android:paddingTop="25dp"
+            android:textSize="10pt"
+            android:textColor="@android:color/black"
+            android:text="Total:"
+            android:id="@+id/shopTotalText"/>
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

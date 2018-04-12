@@ -97,9 +97,6 @@ public class SettingsActivity extends AppCompatActivity implements SimpleDialog.
                             .OnPositiveClicked(new FancyAlertDialogListener() {
                                 @Override
                                 public void OnClick() {
-                                    editor = settingsPreferences.edit();
-                                    editor.putBoolean("isBudgetEnabled", true);
-                                    editor.apply();
 
                                     getSettings();
 
@@ -176,7 +173,7 @@ public class SettingsActivity extends AppCompatActivity implements SimpleDialog.
 
         SimpleListDialog.build()
                 .title("Change your budget settings")
-                .items(new String[]{"Weekly", "Monthly", "Yearly", "Turn budget off"})
+                .items(new String[]{"Daily", "Weekly", "Monthly", "Yearly", "Turn budget off"})
                 .choiceMode(SimpleListDialog.SINGLE_CHOICE)
                 .show(SettingsActivity.this, CHOICE_DIALOG);
 
@@ -212,7 +209,7 @@ public class SettingsActivity extends AppCompatActivity implements SimpleDialog.
 
     @Override
     public void onBackPressed() {
-        Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
+        Intent mainActivity = new Intent(getApplicationContext(), LandingActivity.class);
         startActivity(mainActivity);
     }
 
@@ -244,6 +241,7 @@ public class SettingsActivity extends AppCompatActivity implements SimpleDialog.
                     else {
                         editor = settingsPreferences.edit();
                         editor.putString("budgetTimescale", budgetTimescale);
+                        editor.putBoolean("isBudgetEnabled", true);
                         editor.apply();
                     }
 

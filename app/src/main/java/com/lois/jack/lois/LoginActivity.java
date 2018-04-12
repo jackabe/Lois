@@ -2,35 +2,25 @@ package com.lois.jack.lois;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
-import android.os.Bundle;
-import android.os.Handler;
+import android.hardware.fingerprint.FingerprintManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ListView;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.orm.SchemaGenerator;
-import com.orm.SugarContext;
-import com.orm.SugarDb;
-import com.orm.query.Condition;
-import com.orm.query.Select;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-
+import com.multidots.fingerprintauth.AuthErrorCodes;
+import com.multidots.fingerprintauth.FingerPrintAuthCallback;
+import com.multidots.fingerprintauth.FingerPrintAuthHelper;
 
 /**
- * A full-screen activity that shows and hides the system UI (i.e.
+ * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class ViewActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements FingerPrintAuthCallback {
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -47,12 +37,6 @@ public class ViewActivity extends AppCompatActivity {
      * Some older devices needs a small delay between UI widget updates
      * and a change of the status and navigation bar.
      */
-
-    private ListView itemList;
-    private ArrayList<Item> itemArray;
-    private ItemCustomAdapter listAdatper;
-    private Sale sale;
-
     private static final int UI_ANIMATION_DELAY = 300;
     private final Handler mHideHandler = new Handler();
     private View mContentView;
@@ -107,71 +91,40 @@ public class ViewActivity extends AppCompatActivity {
         }
     };
 
-    private Button moreHelp;
+    private FingerPrintAuthHelper mFingerPrintAuthHelper;
+    private TextView fingerText;
+    private TextView fingerTextFail;
+    private ImageView fingerImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_view);
-
-        /** Using third party library to add images from resources.  - Saves memory issues **/
-
-//        ImageView helpConnect = (ImageView) findViewById(R.id.connectImage);
-//
-//        Glide.with(HelpActivity.this).load(R.drawable.device_found).into(helpConnect);
-
-
-        itemList = (ListView) findViewById(R.id.itemsList);
-
-//        itemArray = MainActivity.itemsToPassOver;
-
-        itemArray = new ArrayList<>(Item.findWithQuery(Item.class, "Select * from Item where sale_id = ?", sale.getId().toString()));
-
-//        itemArray = new ArrayList<>(Select.from(Item.class)
-//                .where(Condition.prop("sale").eq("16"))
-//                .list());
-
-        TextView shopName = findViewById(R.id.shopName);
-        TextView shopTotalPrice = findViewById(R.id.shopTotal);
-
-        shopName.setText("Shop: ");
-        shopTotalPrice.setText("Price: ");
-        shopName.append(sale.getShopName());
-        shopTotalPrice.append(sale.getPriceTotal());
-
-        listAdatper = new ItemCustomAdapter(
-                getApplicationContext(), itemArray);
-        itemList.setAdapter(listAdatper);
-
-        listAdatper.notifyDataSetChanged();
+        setContentView(R.layout.activity_login);
 
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
         mContentView = findViewById(R.id.fullscreen_content);
 
-//        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0099cc")));
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        fingerText = findViewById(R.id.fingerText);
+        fingerTextFail = findViewById(R.id.fingerTextFail);
+        fingerImage = findViewById(R.id.fingerImage);
 
-//        moreHelp = (Button) findViewById(R.id.moreHelp);
-//        moreHelp.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent homepage = new Intent(android.content.Intent.ACTION_VIEW);
-//                homepage.setData(Uri.parse("http://www.thorlux.com"));
-//                startActivity(homepage);
-//            }
-//        });
+        mFingerPrintAuthHelper = FingerPrintAuthHelper.getHelper(this, this);
+        mFingerPrintAuthHelper.startAuth();
+
 
         // Set up the user interaction to manually show or hide the system UI.
         mContentView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                toggle();
+//                toggle();
             }
         });
 
+        // Upon interacting with UI controls, delay any scheduled hide()
+        // operations to prevent the jarring behavior of controls going away
+        // while interacting with the UI.
     }
 
     @Override
@@ -190,12 +143,6 @@ public class ViewActivity extends AppCompatActivity {
         } else {
             show();
         }
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return true;
     }
 
     private void hide() {
@@ -233,4 +180,48 @@ public class ViewActivity extends AppCompatActivity {
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mFingerPrintAuthHelper.stopAuth();
+    }
+
+    @Override
+    public void onNoFingerPrintHardwareFound() {
+        //Device does not have finger print scanner.
+    }
+
+    @Override
+    public void onNoFingerPrintRegistered() {
+        //There are no finger prints registered on this device.
+    }
+
+    @Override
+    public void onBelowMarshmallow() {
+        //Device running below API 23 version of android that does not support finger print authentication.
+    }
+
+    @Override
+    public void onAuthSuccess(FingerprintManager.CryptoObject cryptoObject) {
+        fingerText.setVisibility(View.INVISIBLE);
+        fingerImage.setImageResource(R.drawable.fingerprint);
+        Intent mainActivity = new Intent(getApplicationContext(), LandingActivity.class);
+        startActivity(mainActivity);
+    }
+
+    @Override
+    public void onAuthFailed(int errorCode, String errorMessage) {
+        switch (errorCode) {    //Parse the error code for recoverable/non recoverable error.
+            case AuthErrorCodes.CANNOT_RECOGNIZE_ERROR:
+                fingerText.setVisibility(View.VISIBLE);
+                fingerImage.setImageResource(R.drawable.fingerprint_red);
+                break;
+            case AuthErrorCodes.NON_RECOVERABLE_ERROR:
+                //This is not recoverable error. Try other options for user authentication. like pin, password.
+                break;
+            case AuthErrorCodes.RECOVERABLE_ERROR:
+                //Any recoverable error. Display message to the user.
+                break;
+        }
+    }
 }

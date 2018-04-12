@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.lois.jack.lois.BudgetActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.github.lzyzsd.circleprogress.DonutProgress
+            android:id="@+id/donut_progress"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="30dp"
+            android:layout_centerVertical="true"/>
+
+    <RelativeLayout
+        android:layout_alignLeft="@id/donut_progress"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="200dp"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/budgetTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:paddingTop="40dp"
+            android:text="Your Budget:"
+            android:textColor="#551F8A"
+            android:textSize="15pt" />
+
+        <TextView
+            android:id="@+id/budgetAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:layout_below="@id/budgetTitle"
+            android:paddingTop="20dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="£4000 of £8000 spenokkko okooko okokokokko okokot"
+            android:textColor="#551F8A"
+            android:textSize="8pt" />
+
+        <Button
+            android:text="Change Budget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_shape"
+            android:textColor="#551F8A"
+            android:padding="10dp"
+            android:id="@+id/changeBudget"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="60dp" />
+
+        </RelativeLayout>
+
+
+
+    </RelativeLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>
